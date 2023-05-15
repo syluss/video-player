@@ -1,0 +1,229 @@
+@charset 'UTF-8';
+
+:root {
+    --progressW: 100%;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    background: #F4F4FA;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header {
+    background: #1D87D8;
+    color: #fff;
+    text-align: center;
+    padding: 50px 0;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+header .titulo {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+main {
+    margin-top: 150px;
+    text-align: center;
+}
+
+main .contenedor-article {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    text-align: justify;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* --------------------------- */
+/* Estilos CSS del Reproductor */
+/* --------------------------- */
+.contenedor-video {
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding: 0;
+    display: inline-flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.contenedor-video .video-player {}
+
+.contenedor-video .video-controls {
+    background: #F4F4FA;
+    /* background: #e937aa; */
+    color: #2D5F85;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenedor-video .video-controls .left-btns {
+    display: flex;
+    align-items: center;
+}
+
+[type=range] {
+    -webkit-appearance: none;
+    /* width: calc(100% - 50px); */
+    vertical-align: middle;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+[type=range]::-webkit-slider-runnable-track {
+    -webkit-appearance: slider-horizontal;
+    height: 2px;
+    padding: 0;
+    cursor: pointer;
+    background: linear-gradient(to right, #2D5F85 0%, #2D5F85 var(--progressW), #c0c0c0 var(--progressW), #c0c0c0 100%);
+}
+
+[type=range]::-moz-range-track {
+    -webkit-appearance: slider-horizontal;
+    height: 2px;
+    padding: 0;
+    cursor: pointer;
+    background: linear-gradient(to right, #2D5F85 0%, #2D5F85 var(--progressW), #c0c0c0 var(--progressW), #c0c0c0 100%);
+}
+
+[type=range]::-ms-track {
+    -webkit-appearance: slider-horizontal;
+    height: 2px;
+    padding: 0;
+    cursor: pointer;
+    background: linear-gradient(to right, #2D5F85 0%, #2D5F85 var(--progressW), #c0c0c0 var(--progressW), #c0c0c0 100%);
+}
+
+[type=range]::-webkit-slider-thumb {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    width: 11px;
+    height: 11px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background: #2D5F85;
+}
+
+[type=range]::-moz-range-thumb {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    width: 11px;
+    height: 11px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background: #2D5F85;
+}
+
+[type=range]::-ms-thumb {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    width: 11px;
+    height: 11px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background: #2D5F85;
+}
+
+[type=range]:active::-webkit-slider-thumb {
+    width: 13px;
+    height: 13px;
+    margin-top: -5px;
+    background: #2D5F85;
+}
+
+[type=range]:active::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+    margin-top: -5px;
+    background: #2D5F85;
+}
+
+[type=range]:active::-ms-thumb {
+    width: 13px;
+    height: 13px;
+    margin-top: -5px;
+    background: #2D5F85;
+}
+
+[type=range]::-moz-range-progress {
+    background: #2D5F85;
+}
+
+[type=range]::-ms-fill-upper {
+    background: #2D5F85;
+}
+
+.contenedor-video .video-controls button {
+    color: #2D5F85;
+    padding: 5px;
+    border: none;
+    background: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.contenedor-video .video-controls .play-pause {
+    width: 15px;
+    margin-right: 15px;
+}
+
+.contenedor-video .video-controls .mute {
+    width: 20px;
+    margin-right: 8px;
+}
+
+.contenedor-video .video-controls .rangVolumen {
+    width: 50px;
+}
+
+/* --------------------------- */
+article {
+    margin: 50px 0;
+    background: #fff;
+    color: #000;
+    font-size: 16px;
+    line-height: 28px;
+    padding: 40px;
+}
+
+article h2 {
+    color: #2D5F85;
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        position: relative;
+        height: auto;
+    }
+
+    main {
+        margin-top: 50px;
+    }
+}

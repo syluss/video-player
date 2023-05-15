@@ -1,0 +1,188 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Vídeo</title>
+    <script>
+        function run(){
+            
+            const videoList = [
+                "arboles1",
+                "arboles2",
+                "rio",
+                "fuente"
+            ];
+            let video = document.querySelector('video');
+            let select = document.querySelector('select');
+            let videoPlayingIndex = 0;
+
+
+            /*** Preparación de opciones de vídeos ***/
+            let list = document.getElementById("lista");
+            for (let i=0; i < videoList.length; i++){
+                let node = document.createElement("li");
+                let text = document.createTextNode(videoList[i]);
+                node.appendChild(text);
+                node.onclick = () => switchVideos({videoIndex: i});
+                list.appendChild(node);
+            }
+            /******************************************/
+
+            /*** Preparación de opciones de subtítulos ***/
+            let tracksOff = document.createElement('option')
+            tracksOff.setAttribute('value','off');
+            tracksOff.textContent = 'Sin subs';
+            select.appendChild(tracksOff);
+
+            for (var i = 0; i < video.textTracks.length; i++) {
+                // Añadimos al select los posibles subtítulos
+                var curTrack = video.textTracks[i];
+                var trackOpt = document.createElement('option');
+                trackOpt.setAttribute('value', curTrack.language);
+                trackOpt.textContent = curTrack.label;
+                select.appendChild(trackOpt);
+
+                // Añadimos logs en los eventos de cada track
+/*                 curTrack.addEventListener("load", (e) => console.log(`track loaded `, curTrack.src, e));
+                curTrack.addEventListener("error", (e) => console.log(`track error`, curTrack.src, e));
+                curTrack.addEventListener("cuechange", (e) => console.log(`cue of change`, curTrack.src, e)); */
+            }
+            /**********************************/
+
+            /*** Gestión de Subtítulos ***/
+            function hideTracks() {
+                for (var i = 0; i < video.textTracks.length; i++) {
+                    console.log('hidding track',video.textTracks[i] );
+                    video.textTracks[i].mode = 'hidden';
+                }
+            }
+            function trackChange(language) {
+                if(language === 'off') {
+                    hideTracks();
+                } else {
+                    hideTracks();
+
+                    for (var i = 0; i < video.textTracks.length; i++) {   
+                        if(video.textTracks[i].language === language) {
+                            video.textTracks[i].mode = 'showing';
+                        }
+                    }
+                }
+            }
+
+            select.addEventListener('change',function() { trackChange(select.value);});
+            /*****************************/    
+
+            /*** Selector de vídeo ***/
+            function switchVideos(config){
+                console.log('switching video with ', config, 'when in ', videoPlayingIndex);
+                const {direction, videoIndex} = config;
+                
+                // cambios usando dirección
+                if (direction){
+                    if (direction === "forward") {
+                        // si ya estamos al último video, salimos de la función
+                        if (videoPlayingIndex === videoList.length-1) 
+                        return
+                        else 
+                            videoPlayingIndex++
+                            
+                    } else if (direction === "backwards") {
+                        // si ya estamos al primer video, salimos de la función
+                        if (videoPlayingIndex === 0) 
+                            return
+                        else
+                            videoPlayingIndex--
+                    }
+                    
+                // cambios usando índice
+                } else if (videoIndex || videoIndex === 0){
+                    // si ya estamos al video del índice deseado, salimos de la función
+                    if (videoIndex === videoPlayingIndex)
+                        return
+                    else 
+                        videoPlayingIndex = videoIndex
+                }
+
+
+                video1.src = videoList[videoPlayingIndex] + ".mp4";
+                video2.src = videoList[videoPlayingIndex] + ".ogv";
+                esSubs.src = "subs/" + videoList[videoPlayingIndex] + "-es.vtt";
+                enSubs.src = "subs/" + videoList[videoPlayingIndex] + "-en.vtt";
+                trackChange(select.value);
+                media.pause();
+                media.load();
+                media.play();
+            }
+            playPrev.addEventListener("click", ()=> switchVideos({direction:'backwards'}));
+            playNext.addEventListener("click", ()=> switchVideos({direction:'forward'}));
+            playPrev.addEventListener("click", ()=> switchVideos({direction:'backwards'}));
+            /********************************/
+
+
+            /*** Cambio de medidas del vídeo ***/
+            const heightPortion = 480*0.05;
+            const widthPortion = 720*0.05; 
+            function scale(type){
+                // cambios a menor
+                if (type === "smaller"){
+                    if ((media.height - heightPortion > 0) && (media.width - widthPortion > 0)){
+                        media.height -= heightPortion;
+                        media.width -= widthPortion;
+                    }
+
+                // cambios a mayor
+                } else if (type === "bigger") {
+                    media.height += heightPortion;
+                    media.width += widthPortion;
+                }
+            }
+            /*********************************/
+
+            /*** Captura de instantánea ***/
+            function takeSnapShot(){
+                let canvasContext = frame.getContext("2d");
+                canvasContext.drawImage(media, 0, 0, 480, 320);
+
+                var canvas = document.getElementById("frame");
+                var anchor = document.createElement("a");
+                anchor.href = canvas.toDataURL("image/png");
+                anchor.download = "IMAGE.PNG";
+                anchor.click();
+                //document.removeChild(docume.firstElementChild);
+            }
+            /*****************************/    
+
+        }
+
+
+    </script>
+</head>
+<body onload="run()">
+    <section>
+        <video id="media" width="720" height="480" controls style="border: blue solid 2px;">
+            <source id="video1" src="arboles1.mp4" type="video/mp4">
+            <source id="video2" src="arboles1.ogv" type="video/ogg">
+            <track id="esSubs" kind="subtitles" label="Castellano" src="subs/arboles1-es.vtt" srclang="es" deafult>
+            <track id="enSubs" kind="subtitles" label="Íngles" src="subs/arboles1-en.vtt" srclang="en">
+        </video>
+        <ol id="lista">
+        </ol>
+        <button id="playPrev">Anterior Vídeo</button>
+        <button id="playNext">Siguiente Vídeo</button>
+        <button id="scaleDown" onclick='scale("smaller")'>- tamaño</button>
+        <button id="scaleUp" onclick='scale("bigger")'>+ tamaño</button>
+        <button id="snapShot" onclick="takeSnapShot()">Captura Imagen</button>
+        <button id="snapShotAnchor" hidden></button>
+        <button id="subtitles" type="button" data-state="subtitles">CC</button>
+        <form>
+            <select name="select">
+            </select>
+        </form>
+        <canvas id="frame" width="720" height="480" style="border: red solid 2px;"></canvas>
+
+
+    </section> 
+</body>
+</html>
