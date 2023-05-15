@@ -330,8 +330,8 @@ function switchVideos(config){
 
     video1.src = videoList[videoPlayingIndex] + ".mp4";
     video2.src = videoList[videoPlayingIndex] + ".ogv";
-    esSubs.src = "subs/" + videoList[videoPlayingIndex] + "-es.vtt";
-    enSubs.src = "subs/" + videoList[videoPlayingIndex] + "-en.vtt";
+    // esSubs.src = "subs/" + videoList[videoPlayingIndex] + "-es.vtt";
+    // enSubs.src = "subs/" + videoList[videoPlayingIndex] + "-en.vtt";
     video.pause();
     video.load();
     video.play();

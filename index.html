@@ -17,11 +17,12 @@
         </header>
     
         <main>
+            <canvas id="frame" width="720" height="405"></canvas>
             <div class="contenedor-video" id="contenedor-video">
                 <video id="video-player" class="video-player" width="720px">
-                    <source src="videos/streaming.mp4" type="video/mp4">
-                    <source src="videos/streaming.webm" type="video/webm">
-                    <source src="videos/streaming.ogg" type="video/ogg">
+                    <source id="video1" src="" type="video/mp4">
+                    <source id="video2" src="" type="video/webm">
+                    <source id="video3" src="" type="video/ogg">
                 </video>
 
                 <div class="video-controls" id="video-controls">
@@ -40,22 +41,60 @@
                         </button>
                         <input type="range" id="rangVolumen" class="rangVolumen" value="1" min="0" max="1" step="0.1" autocomplete="off">
                     </div>
-                        
-                        <input type="range" id="velocidad" value="0">
-                        <button id="maximizar">Maximizar</button>
-                        <button id="zoom-in" class="zoom" data-type="bigger">+</button>
-                        <button id="restablecer" class="zoom" data-type="restore">restablecer</button>
-                        <button id="zoom-out" class="zoom" data-type="smaller">-</button>
-                </div>
-
-                <div class="center-btns">
-                    <!-- BARRA DE PROGRESO -->
-                    <div class="video-progress">
-                        <progress id="progress-bar" value="0" min="0"></progress>
+                    <div class="center-btns">
+                        <!-- BARRA DE PROGRESO -->
                         <input class="seek" id="seek" value="0" min="0" type="range" step="1">
                         <div class="seek-tooltip" id="seek-tooltip">00:00</div>
+
+                        <!-- Tiempo que queda por ver -->
+                        <div class="time">
+                            <time id="time-left"></time>
+                        </div>
                     </div>
+                    <div class="right-btns">
+                        <!-- Instantánea -->
+                        <button id="snapshot" title="Snapshot"> <i class="fa-solid fa-camera"></i> </button>
+                        
+                        <!-- Lista videos -->
+                        <button id="playPrev"><i class="fa-solid fa-backward-step"></i></button>
+                        <div id="current-title" class="current-title">
+                            <span></span>
+                            <div class="titles-menu floating-menu oculto"></div>
+                        </div>
+                        <button id="playNext"><i class="fa-solid fa-forward-step"></i></button>
+
+                        <!-- Velocidad de reproducción -->
+                        <div class="speed-container">
+                            <button class="speed-button" id="speed-button" data-title="Speed" title="Velocidad de reproducción">×1</button>
+                            <!-- Menú velocidad -->
+                            <div class="speed-menu floating-menu oculto">
+                                <div class="f-menu-option" data-speed="0.25">×0.25</div>
+                                <div class="f-menu-option" data-speed="0.5">×0.5</div>
+                                <div class="f-menu-option" data-speed="0.75">×0.75</div>
+                                <div class="f-menu-option" data-speed="1">×1</div>
+                                <div class="f-menu-option" data-speed="1.25">×1.25</div>
+                                <div class="f-menu-option" data-speed="1.5">×1.5</div>
+                                <div class="f-menu-option" data-speed="1.75">×1.75</div>
+                                <div class="f-menu-option" data-speed="2">×2</div>
+                            </div>
+                        </div>
+
+                        <!-- SUBTÍTULOS-->
+                        <div class="subs-container">
+                            <button class="subs-button" data-title="Subs"><i class="fa-solid fa-closed-captioning"></i></button>
+                            <!-- Menú subtítulos -->
+                            <div class="subs-menu floating-menu oculto">
+                                <div class="f-menu-option" data-language="off">Sin subs</div>
+                            </div>
+                        </div>
+
+                        <button id="zoom-in" class="zoom" data-type="bigger"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+                        <button id="restablecer" title="Restaurar tamaño" class="zoom" data-type="restore"><i class="fa-solid fa-window-restore"></i></button>
+                        <button id="zoom-out" class="zoom" data-type="smaller"><i class="fa-solid fa-down-left-and-up-right-to-center"></i></button>
+                        <!-- <button id="maximizar"><i class="fa-solid fa-expand"></i></button> -->
+                    </div>    
                 </div>
+
             </div><!-- contenedor-video -->
             <div class="contenedor-article">
                 <article>
