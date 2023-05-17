@@ -20,12 +20,14 @@
             <canvas id="frame" width="720" height="405"></canvas>
             <div class="contenedor-video" id="contenedor-video">
                 <video id="video-player" class="video-player" width="720px">
-                    <source id="video1" src="" type="video/mp4">
-                    <source id="video2" src="" type="video/webm">
-                    <source id="video3" src="" type="video/ogg">
+                    <source id="video1" src="videos/arboles1.mp4" type="video/mp4">
+                    <source id="video2" src="videos/arboles1.ogg" type="video/ogg">
+                    <!-- <source id="video3" src="" type="video/webm"> -->
+                    <track id="esSubs" kind="subtitles" label="Castellano" src="subs/arboles1-es.vtt" srclang="es" deafult>
+                    <track id="enSubs" kind="subtitles" label="Íngles" src="subs/arboles1-en.vtt" srclang="en">
                 </video>
 
-                <div class="video-controls" id="video-controls">
+                <div class="video-controls oculto" id="video-controls">
                     <div class="left-btns">
                         <!-- Play / Pause -->
                         <button id="play-pause" class="play-pause">
@@ -42,7 +44,7 @@
                         <input type="range" id="rangVolumen" class="rangVolumen" value="1" min="0" max="1" step="0.1" autocomplete="off">
                     </div>
                     <div class="center-btns">
-                        <!-- BARRA DE PROGRESO -->
+                        <!-- Barra de progreso -->
                         <input class="seek" id="seek" value="0" min="0" type="range" step="1">
                         <div class="seek-tooltip" id="seek-tooltip">00:00</div>
 
@@ -56,12 +58,13 @@
                         <button id="snapshot" title="Snapshot"> <i class="fa-solid fa-camera"></i> </button>
                         
                         <!-- Lista videos -->
-                        <button id="playPrev"><i class="fa-solid fa-backward-step"></i></button>
-                        <div id="current-title" class="current-title">
-                            <span></span>
+                        <div class="videoList-container">
+                            <button id="playPrev"><i class="fa-solid fa-backward-step"></i></button>
+                            <button class="title-button" id="title-button" data-title="title" title="Título del vídeo"></button>
+                            <!-- Menú de lista de vídeos -->
                             <div class="titles-menu floating-menu oculto"></div>
+                            <button id="playNext"><i class="fa-solid fa-forward-step"></i></button>
                         </div>
-                        <button id="playNext"><i class="fa-solid fa-forward-step"></i></button>
 
                         <!-- Velocidad de reproducción -->
                         <div class="speed-container">
@@ -79,15 +82,16 @@
                             </div>
                         </div>
 
-                        <!-- SUBTÍTULOS-->
+                        <!-- Subtítulos-->
                         <div class="subs-container">
-                            <button class="subs-button" data-title="Subs"><i class="fa-solid fa-closed-captioning"></i></button>
+                            <button class="subs-button" id="subs-button" data-title="Subs"><i class="fa-solid fa-closed-captioning"></i></button>
                             <!-- Menú subtítulos -->
-                            <div class="subs-menu floating-menu oculto">
+                            <div class="subs-menu floating-menu oculto" id="subs-menu">
                                 <div class="f-menu-option" data-language="off">Sin subs</div>
                             </div>
                         </div>
 
+                        <!-- Tamaño del vídeo -->
                         <button id="zoom-in" class="zoom" data-type="bigger"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
                         <button id="restablecer" title="Restaurar tamaño" class="zoom" data-type="restore"><i class="fa-solid fa-window-restore"></i></button>
                         <button id="zoom-out" class="zoom" data-type="smaller"><i class="fa-solid fa-down-left-and-up-right-to-center"></i></button>
